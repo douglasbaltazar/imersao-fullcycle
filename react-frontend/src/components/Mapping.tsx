@@ -95,7 +95,7 @@ export const Mapping: FunctionComponent = () => {
             handler
         );
         return () => {
-            socketIORef.current.off("new-position", handler);
+            socketIORef.current?.off("new-position", handler);
         }
     }, [finishRoute, routes, routeIdSelected]);
     useEffect(() => {

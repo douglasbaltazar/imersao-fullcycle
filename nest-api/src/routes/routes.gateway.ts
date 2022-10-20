@@ -5,7 +5,7 @@ import {
   WebSocketGateway,
   WebSocketServer,
 } from '@nestjs/websockets';
-import { Producer } from 'kafkajs';
+import { Producer } from '@nestjs/microservices/external/kafka.interface';
 import { Socket, Server } from 'socket.io';
 
 @WebSocketGateway({ cors: true })

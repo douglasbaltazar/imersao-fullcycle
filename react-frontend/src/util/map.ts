@@ -32,7 +32,7 @@ export class Route {
 
     private calculateRoute() {
         const currentPosition = this.currentMarker.getPosition() as google.maps.LatLng;
-        const endPosition = this.currentMarker.getPosition() as google.maps.LatLng; 
+        const endPosition = this.endMarker.getPosition() as google.maps.LatLng; 
 
         new google.maps.DirectionsService().route({
             origin: currentPosition,  destination: endPosition, travelMode: google.maps.TravelMode.DRIVING
