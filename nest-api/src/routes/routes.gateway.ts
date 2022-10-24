@@ -1,18 +1,20 @@
 import { Inject, OnModuleInit } from '@nestjs/common';
 import { ClientKafka } from '@nestjs/microservices';
+import { Producer } from '@nestjs/microservices/external/kafka.interface';
 import {
   SubscribeMessage,
   WebSocketGateway,
   WebSocketServer,
 } from '@nestjs/websockets';
-import { Producer } from '@nestjs/microservices/external/kafka.interface';
 import { Socket, Server } from 'socket.io';
 
-@WebSocketGateway({ cors: true })
+@WebSocketGateway()
 export class RoutesGateway implements OnModuleInit {
   private kafkaProducer: Producer;
+
   @WebSocketServer()
   server: Server;
+
   constructor(
     @Inject('KAFKA_SERVICE')
     private kafkaClient: ClientKafka,
@@ -21,6 +23,7 @@ export class RoutesGateway implements OnModuleInit {
   async onModuleInit() {
     this.kafkaProducer = await this.kafkaClient.connect();
   }
+
   @SubscribeMessage('new-direction')
   handleMessage(client: Socket, payload: { routeId: string }) {
     this.kafkaProducer.send({
@@ -48,8 +51,8 @@ export class RoutesGateway implements OnModuleInit {
     const clients = this.server.sockets.connected;
     if (!(clientId in clients)) {
       console.error(
-        'Client not exists, refresh React Application and resend new direction again',
-      ); 
+        'Client not exists, refresh React Application and resend new direction again.',
+      );
       return;
     }
     clients[clientId].emit('new-position', rest);

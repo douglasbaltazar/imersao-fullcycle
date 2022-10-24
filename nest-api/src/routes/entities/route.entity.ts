@@ -1,7 +1,7 @@
 import { Prop, Schema, raw, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
-export type RotueDocument = Route & Document;
+export type RouteDocument = Route & Document;
 
 @Schema()
 export class Route {
@@ -17,7 +17,7 @@ export class Route {
       lng: { type: Number },
     }),
   )
-  startedPosition: { lat: number; lng: number };
+  startPosition: { lat: number; lng: number };
 
   @Prop(
     raw({

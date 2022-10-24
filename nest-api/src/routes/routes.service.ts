@@ -3,18 +3,19 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateRouteDto } from './dto/create-route.dto';
 import { UpdateRouteDto } from './dto/update-route.dto';
-import { RotueDocument, Route } from './entities/route.entity';
+import { Route, RouteDocument } from './entities/route.entity';
 
 @Injectable()
 export class RoutesService {
   constructor(
-    @InjectModel(Route.name) private routeModel: Model<RotueDocument>,
+    @InjectModel(Route.name) private routeModel: Model<RouteDocument>,
   ) {}
+
   create(createRouteDto: CreateRouteDto) {
     return 'This action adds a new route';
   }
 
-  findAll(): Promise<RotueDocument[]> {
+  findAll(): Promise<RouteDocument[]> {
     return this.routeModel.find().exec();
   }
 
